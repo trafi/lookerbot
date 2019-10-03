@@ -115,11 +115,12 @@ export abstract class FancyReplier {
       return
     }
 
-    let sass = this.replyContext.isSlashCommand() ?
+    /*let sass = this.replyContext.isSlashCommand() ?
       "…"
     :
-      sassyMessages[Math.floor(Math.random() * sassyMessages.length)]
+      sassyMessages[Math.floor(Math.random() * sassyMessages.length)]*/
 
+    let sass = ":party_parrot: Hold your breath..."
     if (config.unsafeLocalDev) {
       sass = `[DEVELOPMENT] ${sass}`
     }

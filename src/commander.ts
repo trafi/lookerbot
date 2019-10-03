@@ -77,7 +77,7 @@ export class Commander {
     const matches = url.match(/\/x\/([A-Za-z0-9]+)$/)
     if (matches) {
       console.log(`Expanding Share URL ${url}`)
-      const runner = new QueryRunner(context, {slug: matches[1]})
+      const runner = new QueryRunner(context, { slug: matches[1] })
       runner.start()
     }
   }

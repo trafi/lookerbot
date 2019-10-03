@@ -22,16 +22,10 @@ setInterval(() => {
 }, 30 * 60 * 1000)
 
 const commands = [
-  require("./commands/search_command").SearchCommand,
-  require("./commands/custom_command").CustomCommand,
-  require("./commands/help_command").HelpCommand,
+  require("./commands/custom_nlp_command").CustomNlpCommand
 ]
 
 const listeners = [
-  require("./listeners/static_listener").StaticListener,
-  require("./listeners/data_action_listener").DataActionListener,
-  require("./listeners/health_check_listener").HealthCheckListener,
-  require("./listeners/schedule_listener").ScheduleListener,
 ]
 
 state.commander = new Commander(new SlackService(), {

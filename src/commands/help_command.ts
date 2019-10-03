@@ -41,24 +41,6 @@ export class HelpCommand extends Command {
 • *find* <look search term> — _Shows the top five Looks matching the search._\
 `
 
-    helpAttachments.push({
-      color: "#64518A",
-      mrkdwn_in: ["text"],
-      text: defaultText,
-      title: "Built-in Commands",
-    })
-
-    const spaces = Looker.all.filter((l) => l.customCommandSpaceId).map((l) => {
-      return `<${l.url}/spaces/${l.customCommandSpaceId}|this space>`
-    }).join(" or ")
-
-    if (spaces) {
-      helpAttachments.push({
-        mrkdwn_in: ["text"],
-        text: `\n_To add your own commands, add a dashboard to ${spaces}._`,
-      })
-    }
-
     if (VersionChecker.newVersion) {
       helpAttachments.push({
         color: "warning",
@@ -68,7 +50,7 @@ export class HelpCommand extends Command {
     }
 
     if (context.isDM && (context.sourceMessage.text.toLowerCase() !== "help")) {
-      context.replyPrivate(":crying_cat_face: I couldn't understand that command. You can use `help` to see the list of possible commands.")
+      // context.replyPrivate(":crying_cat_face: I couldn't understand that command. You can use `help` to see the list of possible commands.")
     } else {
       context.replyPrivate({attachments: helpAttachments})
     }
