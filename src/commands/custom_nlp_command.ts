@@ -24,16 +24,17 @@ export class CustomNlpCommand extends Command {
     lexruntime.postText(params, function (err, data) {
       if (err) {
         console.log(err, err.stack); // an error occurred
+        context.replyPrivate(":crying_cat_face: Cannot detect intent: " + err.message);
         return false
       }
       else {
 
         if (!data || !data.intentName) {
-          console.log("Cannot find intent: " + data);
+          console.log("Cannot find intent, input phrase: " + context.sourceMessage.text);
           context.replyPrivate(":crying_cat_face: Cannot detect intent. Check Lex config.");
           return false;
         } else {
-           console.log("Detected intent: " + data.intentName);
+            console.log("Detected intent: " + data.intentName + ", input phrase: " + context.sourceMessage.text);
         }
 
         const normalizedText = data.intentName!.toLowerCase()
@@ -53,6 +54,7 @@ export class CustomNlpCommand extends Command {
 
           return true
         } else {
+          context.replyPrivate(":crying_cat_face: Cannot find dashboard for that. Check Looker config for dashboard " + normalizedText);
           return false
         }
       }
