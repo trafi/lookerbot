@@ -10,15 +10,15 @@ export class CustomNlpCommand extends Command {
 
   public attempt(context: ReplyContext) {
 
-    AWS.config.update({ region: 'eu-west-1' });
+    AWS.config.update({ region: process.env.region });
 
     var lexruntime = new AWS.LexRuntime();
 
     var params = {
-      botAlias: '$LATEST', /* required, has to be '$LATEST' */
-      botName: 'lookerbot', /* required, the name of you bot */
+      botAlias: process.env.AWS_LEX_BOT_ALIAS, /* required, has to be '$LATEST' */
+      botName: process.env.AWS_LEX_BOT_NAME, /* required, the name of you bot */
       inputText: context.sourceMessage.text.toLowerCase(), /* required, your text */
-      userId: 'lookerbot' /* required, arbitrary identifier */
+      userId: process.env.AWS_LEX_BOT_USER /* required, arbitrary identifier */
     };
 
     lexruntime.postText(params, function (err, data) {
@@ -27,12 +27,13 @@ export class CustomNlpCommand extends Command {
         return false
       }
       else {
-        console.log(data);           // successful response
 
-        if (!data.intentName) {
-          console.log("Cannot find intent");
-          context.replyPrivate(":crying_cat_face: " + data.message);
+        if (!data || !data.intentName) {
+          console.log("Cannot find intent: " + data);
+          context.replyPrivate(":crying_cat_face: Cannot detect intent. Check Lex config.");
           return false;
+        } else {
+           console.log("Detected intent: " + data.intentName);
         }
 
         const normalizedText = data.intentName!.toLowerCase()

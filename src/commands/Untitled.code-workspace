@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "/Users/olegasmurasko/Projects/lookerbot"
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "node_modules/typescript/lib"
+	}
+}
